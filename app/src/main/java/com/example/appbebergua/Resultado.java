@@ -10,17 +10,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Locale;
+
+import DAO.PessoaDAO;
+import model.Pessoa;
 
 public class Resultado extends AppCompatActivity {
     Button btnAlarme;
     private Intent it;
-
-
+    private Pessoa pessoa;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        it = getIntent();
+        pessoa = (Pessoa)it.getSerializableExtra("Pessoa");
         setContentView(R.layout.activity_resultado);
+        TextView txtViewApresentacao = findViewById(R.id.textView2);
+        TextView txtResultado = findViewById(R.id.txtResultado);
+        txtResultado.setText(Double.valueOf(pessoa.QtdIngerida).intValue()+"/"+ Double.valueOf(pessoa.MetaDiaria).intValue()+"ml");
+        txtViewApresentacao.setText(pessoa.Nome + ", " + txtViewApresentacao.getText().toString().toLowerCase(Locale.ROOT));
+
+
         btnAlarme = findViewById(R.id.btnAlarme);
 
     }
