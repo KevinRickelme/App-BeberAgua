@@ -31,17 +31,14 @@ public class MainActivity extends AppCompatActivity {
         edtNome = findViewById(R.id.edtNome);
         btnIniciar = findViewById(R.id.btnIniciar);
 
-        edtNome.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (edtNome.getText().length() > 0) {
-                    btnIniciar.setEnabled(true);
-                } else {
-                    btnIniciar.setEnabled(false);
-                }
-                pessoa.Nome = String.valueOf(edtNome.getText());
-                return false;
+        edtNome.setOnKeyListener((view, i, keyEvent) -> {
+            if (edtNome.getText().length() > 0) {
+                btnIniciar.setEnabled(true);
+            } else {
+                btnIniciar.setEnabled(false);
             }
+            pessoa.Nome = String.valueOf(edtNome.getText());
+            return false;
         });
     }
 
