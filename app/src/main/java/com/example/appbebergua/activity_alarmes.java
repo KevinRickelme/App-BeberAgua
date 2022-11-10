@@ -32,6 +32,7 @@ public class activity_alarmes extends AppCompatActivity {
     private CountDownTimer countDownTimer;
 
     private boolean timerRunning;
+    private String escolhaUsuario;
 
     private long startTimeInMillis;
     private long timeLeftInMillis;
@@ -65,6 +66,7 @@ public class activity_alarmes extends AppCompatActivity {
         btnSetAlarm.setOnClickListener(view -> {
             closeKeyboard();
             if (rdbAlarme.isChecked()) {
+
                 int hour = Integer.parseInt(edtHoraOuMinuto.getText().toString());
                 int minute = Integer.parseInt(edtMinutoOuSegundo.getText().toString());
 
@@ -74,12 +76,14 @@ public class activity_alarmes extends AppCompatActivity {
                 intent.putExtra(AlarmClock.EXTRA_MESSAGE, "Tomar água");
 
                 if (correctInputAlarme(hour, minute)) {
+                    escolhaUsuario = "alarme";
                     startActivity(intent);
                 }
             } else if (rdbTimer.isChecked()) {
                 String inputMinutos = edtHoraOuMinuto.getText().toString();
                 String inputSegundos = edtMinutoOuSegundo.getText().toString();
                 if(correctInputTimer(inputMinutos, inputSegundos)) {
+                    escolhaUsuario = "timer";
                     if (timerRunning) {
                         Toast.makeText(this, "Timer já definido!", Toast.LENGTH_LONG).show();
                     } else {
