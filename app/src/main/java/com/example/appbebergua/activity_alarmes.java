@@ -1,16 +1,12 @@
 package com.example.appbebergua;
 
+import static com.example.appbebergua.Timer.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.provider.AlarmClock;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,27 +18,19 @@ import android.widget.Toast;
 
 public class activity_alarmes extends AppCompatActivity {
 
-    EditText edtHoraOuMinuto, edtMinutoOuSegundo;
-    Button btnSetAlarm;
-    RadioButton rdbAlarme, rdbTimer;
-    RadioGroup rdgNotificacao;
+    private EditText edtHoraOuMinuto, edtMinutoOuSegundo;
+    private Button btnSetAlarm;
+    private RadioButton rdbAlarme, rdbTimer;
+    private RadioGroup rdgNotificacao;
 
+    private Notificacao notificacao;
 
-    //variáveis que fazem o timer funcionar
-    private CountDownTimer countDownTimer;
-
-    private boolean timerRunning;
     private String escolhaUsuario;
 
-    private long startTimeInMillis;
-    private long timeLeftInMillis;
-    private long endTime;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmes);
-
-        createNotificationChannel();
 
         edtHoraOuMinuto = findViewById(R.id.edtHoraOuMinuto);
         edtMinutoOuSegundo = findViewById(R.id.edtMinutoOuSegundo);
@@ -84,7 +72,7 @@ public class activity_alarmes extends AppCompatActivity {
                 String inputSegundos = edtMinutoOuSegundo.getText().toString();
                 if(correctInputTimer(inputMinutos, inputSegundos)) {
                     escolhaUsuario = "timer";
-                    if (timerRunning) {
+                    if (isTimerRunning()) {
                         Toast.makeText(this, "Timer já definido!", Toast.LENGTH_LONG).show();
                     } else {
                         startTimer();
@@ -98,7 +86,7 @@ public class activity_alarmes extends AppCompatActivity {
         if(hour <= 24 && hour > 0 &&  minute <= 60)
             return true;
         else
-        return false;
+            return false;
     }
 
     //Métodos para o timer
@@ -110,13 +98,13 @@ public class activity_alarmes extends AppCompatActivity {
             return false;
         }
 
-        if (segundos.length() == 0){
+        if (segundos.length() == 0) {
             millisInputSegundos = 0;
         } else {
             millisInputSegundos = Long.parseLong(segundos) * 1000;
         }
 
-        if (minutos.length() == 0){
+        if (minutos.length() == 0) {
             millisInputMinutos = 0;
         } else {
             millisInputMinutos = Long.parseLong(minutos) * 60000;
@@ -131,71 +119,9 @@ public class activity_alarmes extends AppCompatActivity {
         edtHoraOuMinuto.setText(null);
         edtMinutoOuSegundo.setText(null);
         return true;
-
     }
 
-    public void setTime(long milliSecondsMinutes, long milliSeconds) {
-        startTimeInMillis = milliSecondsMinutes + milliSeconds;
-        timeLeftInMillis = startTimeInMillis;
-    }
 
-    private void startTimer() {
-        endTime = System.currentTimeMillis() + timeLeftInMillis;
-        setNotificationAlarm();
-
-        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeLeftInMillis = millisUntilFinished;
-            }
-
-            @Override
-            public void onFinish() {
-                timerRunning = false;
-            }
-        }.start();
-
-        timerRunning = true;
-    }
-
-    private void pauseTimer() {
-        countDownTimer.cancel();
-        timerRunning = false;
-        cancelNotificationAlarm();
-    }
-
-    //Métodos para a notificação
-    public void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "drinkWaterAppReminderChannel";
-            String description = "Channel to notify the time to drink water";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("drinkWaterApp", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    private void setNotificationAlarm() {
-        Intent it = new Intent(this, NotificacaoReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this, 0, it, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, endTime,
-                pendingIntent);
-        Toast.makeText(this, "Alarme definido.", Toast.LENGTH_SHORT).show();
-    }
-
-    private void cancelNotificationAlarm(){
-        Intent it = new Intent(this, NotificacaoReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this, 0, it, 0);
-        AlarmManager  alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
-        Toast.makeText(this, "Alarme cancelado.", Toast.LENGTH_SHORT).show();
-    }
 
     //Método para fechar o teclado
     private void closeKeyboard() {
@@ -213,17 +139,17 @@ public class activity_alarmes extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-        startTimeInMillis = prefs.getLong("startTimeInMillis", 10000);
-        timeLeftInMillis = prefs.getLong("millisLeft", startTimeInMillis);
-        timerRunning = prefs.getBoolean("timerRunning", false);
+        setStartTimeInMillis(prefs.getLong("startTimeInMillis", 10000));
+        setTimeLeftInMillis(prefs.getLong("millisLeft", getStartTimeInMillis()));
+        setTimerRunning(prefs.getBoolean("timerRunning", false));
 
-        if (timerRunning) {
-            endTime = prefs.getLong("endTime", 0);
-            timeLeftInMillis = endTime - System.currentTimeMillis();
+        if (isTimerRunning()) {
+            setEndTime(prefs.getLong("endTime", 0));
+            setTimeLeftInMillis(getEndTime() - System.currentTimeMillis());
 
-            if (timeLeftInMillis < 0) {
-                timeLeftInMillis = 0;
-                timerRunning = false;
+            if (getTimeLeftInMillis() < 0) {
+                setTimeLeftInMillis(0);
+                setTimerRunning(false);
             } else {
                 startTimer();
             }
@@ -238,14 +164,14 @@ public class activity_alarmes extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
-        editor.putLong("startTimeInMillis", startTimeInMillis);
-        editor.putLong("millisLeft", timeLeftInMillis);
-        editor.putLong("endTime", endTime);
-        editor.putBoolean("timerRunning", timerRunning);
+        editor.putLong("startTimeInMillis", getStartTimeInMillis());
+        editor.putLong("millisLeft", getTimeLeftInMillis());
+        editor.putLong("endTime", getEndTime());
+        editor.putBoolean("timerRunning", isTimerRunning());
         editor.apply();
 
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
+        if (getCountDownTimer() != null) {
+            cancelCountDownTimer();
         }
     }
 }
