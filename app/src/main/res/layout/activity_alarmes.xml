@@ -15,19 +15,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="323dp"
-        android:layout_height="37dp"
-        android:gravity="center_horizontal|left"
-        android:text="Escolha como deseja ser avisado!!"
-        android:textColor="#8C9EFF"
-        android:textSize="20sp"
+    <Button
+        android:id="@+id/btnSetAlarm"
+        android:layout_width="240dp"
+        android:layout_height="56dp"
+        android:text="Programar alarme"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.358" />
+        app:layout_constraintVertical_bias="0.845" />
 
     <RadioGroup
         android:id="@+id/rdgNotificacao"
@@ -40,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.456">
+        app:layout_constraintVertical_bias="0.553">
 
         <RadioButton
             android:id="@+id/rdbAlarme"
@@ -55,31 +54,19 @@
             android:text="Timer" />
     </RadioGroup>
 
-    <Button
-        android:id="@+id/btnSetAlarm"
-        android:layout_width="240dp"
-        android:layout_height="56dp"
-        android:text="Programar alarme"
-        android:textSize="14sp"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="323dp"
+        android:layout_height="37dp"
+        android:gravity="center_horizontal|left"
+        android:text="Escolha como deseja ser avisado!!"
+        android:textColor="#8C9EFF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.748" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/copo" />
+        app:layout_constraintVertical_bias="0.453" />
 
     <EditText
         android:id="@+id/edtMinutoOuSegundo"
@@ -93,7 +80,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
+        app:layout_constraintVertical_bias="0.967" />
 
     <EditText
         android:id="@+id/edtHoraOuMinuto"
@@ -108,7 +95,20 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.997" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/copo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,6 +41,8 @@ public class activity_alarmes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmes);
 
+        createNotificationChannel();
+
         edtHoraOuMinuto = findViewById(R.id.edtHoraOuMinuto);
         edtMinutoOuSegundo = findViewById(R.id.edtMinutoOuSegundo);
         btnSetAlarm = findViewById(R.id.btnSetAlarm);
@@ -71,23 +73,27 @@ public class activity_alarmes extends AppCompatActivity {
                 intent.putExtra(AlarmClock.EXTRA_MINUTES, minute);
                 intent.putExtra(AlarmClock.EXTRA_MESSAGE, "Tomar água");
 
-                if (hour <= 24 && minute <= 60) {
+                if (correctInputAlarme(hour, minute)) {
                     startActivity(intent);
                 }
             } else if (rdbTimer.isChecked()) {
                 String inputMinutos = edtHoraOuMinuto.getText().toString();
                 String inputSegundos = edtMinutoOuSegundo.getText().toString();
-                correctInputTimer(inputMinutos, inputSegundos);
-                if (timerRunning) {
-                    Toast.makeText(this, "Timer já definido!", Toast.LENGTH_LONG).show();
-                } else {
-                    startTimer();
+                if(correctInputTimer(inputMinutos, inputSegundos)) {
+                    if (timerRunning) {
+                        Toast.makeText(this, "Timer já definido!", Toast.LENGTH_LONG).show();
+                    } else {
+                        startTimer();
+                    }
                 }
             }
         });
     }
 
-    public boolean correctInputAlarme(){
+    public boolean correctInputAlarme(int hour, int minute){
+        if(hour <= 24 && hour > 0 &&  minute <= 60)
+            return true;
+        else
         return false;
     }
 
@@ -196,26 +202,6 @@ public class activity_alarmes extends AppCompatActivity {
         }
     }
 
-
-    //Método que "salva" os valores quando o app é fechado
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putLong("startTimeInMillis", startTimeInMillis);
-        editor.putLong("millisLeft", timeLeftInMillis);
-        editor.putLong("endTime", endTime);
-        editor.putBoolean("timerRunning", timerRunning);
-        editor.apply();
-
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-    }
-
     //Método que "recupera" os valores quando o app é iniciado
     @Override
     protected void onStart() {
@@ -240,4 +226,22 @@ public class activity_alarmes extends AppCompatActivity {
         }
     }
 
+    //Método que "salva" os valores quando o app é fechado
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putLong("startTimeInMillis", startTimeInMillis);
+        editor.putLong("millisLeft", timeLeftInMillis);
+        editor.putLong("endTime", endTime);
+        editor.putBoolean("timerRunning", timerRunning);
+        editor.apply();
+
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+    }
 }
