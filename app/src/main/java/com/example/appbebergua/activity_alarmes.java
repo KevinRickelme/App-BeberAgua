@@ -21,6 +21,8 @@ public class activity_alarmes extends AppCompatActivity {
     private RadioButton rdbAlarme, rdbTimer;
     private RadioGroup rdgNotificacao;
     private String escolhaUsuario;
+    private boolean alarmeProgramado;
+    private boolean timerRodando;
 
 
     protected void onCreate(Bundle savedInstanceState) {
