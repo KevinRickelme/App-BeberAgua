@@ -2,10 +2,8 @@ package com.example.appbebergua;
 
 import android.content.Context;
 import android.os.CountDownTimer;
-import android.widget.Toast;
 
 public class Timer {
-
 
     private static long startTimeInMillis;
     private static long timeLeftInMillis;

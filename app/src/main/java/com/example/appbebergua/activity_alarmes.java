@@ -1,9 +1,7 @@
 package com.example.appbebergua;
 
 import static com.example.appbebergua.Timer.*;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,9 +20,6 @@ public class activity_alarmes extends AppCompatActivity {
     private Button btnSetAlarm;
     private RadioButton rdbAlarme, rdbTimer;
     private RadioGroup rdgNotificacao;
-
-    private Notificacao notificacao;
-
     private String escolhaUsuario;
 
 
@@ -32,6 +27,7 @@ public class activity_alarmes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmes);
 
+        setContext(this);
         edtHoraOuMinuto = findViewById(R.id.edtHoraOuMinuto);
         edtMinutoOuSegundo = findViewById(R.id.edtMinutoOuSegundo);
         btnSetAlarm = findViewById(R.id.btnSetAlarm);

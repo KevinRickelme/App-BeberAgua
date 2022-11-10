@@ -1,8 +1,6 @@
 package com.example.appbebergua;
 
-import static android.content.Context.ALARM_SERVICE;
 import static com.example.appbebergua.Timer.getEndTime;
-
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
