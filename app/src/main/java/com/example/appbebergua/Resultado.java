@@ -139,7 +139,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
     public void btnAdiar(View view){
         AlertDialog.Builder confirmaAdiar = new AlertDialog.Builder(Resultado.this);
         confirmaAdiar.setTitle("Atenção !!")
-                .setMessage("Tem certeza que deseja adiar a notificação?")
+                .setMessage("Tem certeza que deseja adiar a notificação em 30 minutos?")
                 .setCancelable(false)
                 .setPositiveButton("Sim", (dialog, which) -> adiar());
         confirmaAdiar.setNegativeButton("Não", null);
