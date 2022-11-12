@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="btnAlarme"
-    tools:context=".Resultado">
+    tools:context=".Resultado"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="43dp">
 
     <View
         android:id="@+id/view2"
@@ -18,15 +20,16 @@
 
     <View
         android:id="@+id/container_resultado"
-        android:layout_width="273dp"
-        android:layout_height="232dp"
+        android:layout_width="170dp"
+        android:layout_height="161dp"
         android:background="@drawable/container_resultado"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.559" />
+        app:layout_constraintVertical_bias="0.455" />
 
     <TextView
         android:id="@+id/txtResultado"
@@ -55,21 +58,33 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.927" />
+        app:layout_constraintVertical_bias="0.829" />
 
     <Button
         android:id="@+id/btnAlarme"
-        android:layout_width="240dp"
+        android:layout_width="227dp"
         android:layout_height="56dp"
         android:onClick="btnAlarme"
         android:text="Configurar alarme"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container_resultado"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.085" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:text="Confimar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.948" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -82,6 +97,43 @@
         app:layout_constraintTop_toBottomOf="@+id/view2"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/copo" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="346dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.847" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirme a quantidade de água que bebeu:"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.792" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:text="Adiar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.948" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
