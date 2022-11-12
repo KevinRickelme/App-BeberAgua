@@ -58,14 +58,11 @@ public class DadosPessoais extends AppCompatActivity {
         long resultado = pessoaDao.insert(pessoa);
         if( resultado != -1){
             Intent it = new Intent(this, Resultado.class);
+            it.putExtra("primeiroAcesso", true);
             PessoaDAO p = new PessoaDAO(this);
             p.getPessoaFromDb();
             startActivity(it);
         }
-
-
-
-
     }
 
     private double calcularQtdAIngerir(double peso, boolean praticaExercicio) {

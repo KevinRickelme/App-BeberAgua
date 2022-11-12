@@ -2,4 +2,10 @@
     <string name="app_name">Drink Water</string>
     <string name="Configuracoes">Configurações</string>
     <string name="Sair">Sair</string>
+
+    <string-array name="medidas_ml">
+        <item>1 Copo americano - 200ml</item>
+        <item>1 Copo grande - 300ml</item>
+        <item>1 Garrafa de água- 500ml</item>
+    </string-array>
 </resources>

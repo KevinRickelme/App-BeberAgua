@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -17,16 +20,22 @@ import java.util.Locale;
 import DAO.PessoaDAO;
 import model.Pessoa;
 
-public class Resultado extends AppCompatActivity {
-    Button btnAlarme;
+public class Resultado extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private Button btnAlarme, btnConfirma, btnAdiar;
     private Intent it;
     private Pessoa pessoa;
+    private Spinner opcoesQtdAguaIngerida;
+    private TextView txtQtdAgua;
+    private String respostaUser;
+
+    private boolean primeiroAcesso;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         it = getIntent();
+        it.getBooleanExtra("primeiroAcesso", false);
         pessoa = (Pessoa)it.getSerializableExtra("Pessoa");
         setContentView(R.layout.activity_resultado);
         TextView txtViewApresentacao = findViewById(R.id.textView2);
@@ -36,6 +45,26 @@ public class Resultado extends AppCompatActivity {
 
 
         btnAlarme = findViewById(R.id.btnAlarme);
+        btnConfirma = findViewById(R.id.btnConfirma);
+        btnAdiar = findViewById(R.id.btnAdiar);
+        opcoesQtdAguaIngerida = findViewById(R.id.opcoesQtdAguaIngerida);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.medidas_ml, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        opcoesQtdAguaIngerida.setAdapter(adapter);
+
+
+        if(primeiroAcesso){
+            btnConfirma.setVisibility(View.INVISIBLE);
+            btnAdiar.setVisibility(View.INVISIBLE);
+            txtQtdAgua.setVisibility(View.INVISIBLE);
+            opcoesQtdAguaIngerida.setVisibility(View.INVISIBLE);
+        } else {
+            btnConfirma.setVisibility(View.VISIBLE);
+            btnAdiar.setVisibility(View.VISIBLE);
+//            txtQtdAgua.setVisibility(View.VISIBLE);
+            opcoesQtdAguaIngerida.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -58,6 +87,17 @@ public class Resultado extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        respostaUser = parent.getItemAtPosition(pos).toString();
+
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
 
     public void btnAlarme (View view) {
         Intent it = new Intent(this, activity_alarmes.class);

@@ -24,6 +24,7 @@ public class Notificacao extends AppCompatActivity {
 
     public void setNotificationAlarm() {
         Intent it = new Intent(context, NotificacaoReceiver.class);
+        it.putExtra("primeiroAcesso", false);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context, 0, it, 0);
 
