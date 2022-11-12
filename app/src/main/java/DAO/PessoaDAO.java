@@ -92,6 +92,20 @@ public class PessoaDAO {
         }
     }
 
+    public void resetQtdIngerida(){
+        Pessoa p = new Pessoa();
+        p = this.getPessoaFromDb();
+        db = banco.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("QtdIngerida",(0));
+        try {
+            db.update("Pessoa", values, null, null);
+        }
+        catch(Exception ex){
+            int id=0;
+        }
+    }
+
 
 
 }

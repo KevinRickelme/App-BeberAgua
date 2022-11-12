@@ -62,10 +62,6 @@ public class DadosPessoais extends AppCompatActivity {
             p.getPessoaFromDb();
             startActivity(it);
         }
-
-
-
-
     }
 
     private double calcularQtdAIngerir(double peso, boolean praticaExercicio) {
