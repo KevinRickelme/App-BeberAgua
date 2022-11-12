@@ -23,8 +23,8 @@
 
     <View
         android:id="@+id/container_resultado"
-        android:layout_width="170dp"
-        android:layout_height="161dp"
+        android:layout_width="234dp"
+        android:layout_height="203dp"
         android:background="@drawable/container_resultado"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,18 +76,6 @@
         app:layout_constraintTop_toBottomOf="@+id/container_resultado"
         app:layout_constraintVertical_bias="0.085" />
 
-    <Button
-        android:id="@+id/btnConfirma"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:text="Confimar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.298"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
-
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="165dp"
@@ -129,13 +117,27 @@
         android:id="@+id/btnAdiar"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
+        android:onClick="btnAdiar"
         android:text="Adiar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.705"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintVertical_bias="0.957" />
+
+    <Button
+        android:id="@+id/btnConfirma"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:onClick="btnConfirma"
+        android:text="Confimar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.298"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.957" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

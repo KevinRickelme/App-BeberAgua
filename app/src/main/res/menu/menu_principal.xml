@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-<item
-android:title="@string/Configuracoes"
-    android:id="@+id/itemConfiguracoes"
-    />
-
+    <item
+        android:id="@+id/itemReset"
+        android:title="@string/ResetMeta" />
+    <item
+        android:id="@+id/itemConfiguracoes"
+        android:title="@string/Configuracoes" />
     <item
         android:title="@string/Sair"
-        android:id="@+id/itemSair"
-        />
-
+        android:id="@+id/itemSair"/>
 </menu>

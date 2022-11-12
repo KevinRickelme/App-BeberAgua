@@ -121,7 +121,7 @@ public class activity_alarmes extends AppCompatActivity {
             return false;
         }
 
-        setNotificationTime(millisInputMinutos, millisInputSegundos);
+        setStartTimeInMillis(millisInputMinutos + millisInputSegundos);
         edtHoraOuMinuto.setText(null);
         edtMinutoOuSegundo.setText(null);
         return true;
@@ -130,8 +130,8 @@ public class activity_alarmes extends AppCompatActivity {
     //Métodos para a notificação
     public void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "drinkWaterAppReminderChannel";
-            String description = "Channel to notify the time to drink water";
+            CharSequence name = "Lembrete para beber água";
+            String description = "Canal para notificar quando beber água";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("drinkWaterApp", name, importance);
             channel.setDescription(description);
@@ -140,12 +140,6 @@ public class activity_alarmes extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-    public void setNotificationTime(long milliSecondsMinutes, long milliSeconds){
-        setStartTimeInMillis(milliSecondsMinutes + milliSeconds);
-    }
-
-
 
     //Método para fechar o teclado
     private void closeKeyboard() {

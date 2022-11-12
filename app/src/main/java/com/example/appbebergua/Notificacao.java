@@ -35,7 +35,7 @@ public class Notificacao extends AppCompatActivity {
         Toast.makeText(context, "Alarme definido.", Toast.LENGTH_SHORT).show();
     }
 
-    /*
+
     public void cancelNotificationAlarm(){
         Intent it = new Intent(context, NotificacaoReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -44,7 +44,7 @@ public class Notificacao extends AppCompatActivity {
         alarmManager.cancel(pendingIntent);
         Toast.makeText(context, "Alarme cancelado.", Toast.LENGTH_SHORT).show();
     }
-    */
+
 
     //Getters
     public static long getStartTimeInMillis() {
