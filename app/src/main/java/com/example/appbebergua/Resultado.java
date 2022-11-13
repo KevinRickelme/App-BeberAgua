@@ -82,7 +82,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemConfiguracoes:
-                Intent it = new Intent(this, DadosPessoais.class);
+                Intent it = new Intent(this, Config.class);
                 startActivity(it);
                 return true;
 

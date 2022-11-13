@@ -7,37 +7,40 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Locale;
+
+import DAO.PessoaDAO;
 import model.Pessoa;
 
 public class Config extends Activity {
 
-    private TextView txtNome;
-    private TextView txtPeso;
-    private TextView txtPraticaExercicio;
+    private TextView txtNome, txtPeso, txtPraticaExercicio;
     private Button btnAlterar;
     private Button btnAlarme;
+    private PessoaDAO pessoaDAO;
     private Pessoa pessoa;
     private Intent it;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        pessoaDAO = new PessoaDAO(this);
+        it = getIntent();
+        pessoa = (Pessoa) it.getSerializableExtra("Pessoa");
         setContentView(R.layout.activity_config);
+
+        txtNome = findViewById(R.id.txtNome);
+        txtNome.setText(pessoa.Nome + ", " + txtNome.getText().toString().toLowerCase(Locale.ROOT));
+
+        txtPeso = findViewById(R.id.txtPeso);
+        txtPeso.setText(Double.valueOf(pessoa.Peso).intValue());
 
         txtPraticaExercicio = findViewById(R.id.txtPraticaExercicio);
 
-
         btnAlterar = findViewById(R.id.btnAlterar);
+        btnAlarme = findViewById(R.id.btnAlarme);
 
-        txtPeso = findViewById(R.id.txtPeso);
-        it = getIntent();
-        pessoa = (Pessoa)it.getSerializableExtra("Pessoa");
-        txtPeso.setText((int) pessoa.Peso);
-
-        txtNome = findViewById(R.id.txtNome);
-        it = getIntent();
-        pessoa = (Pessoa)it.getSerializableExtra("Pessoa");
-        txtNome.setText(pessoa.Nome);
     }
 
     public void btnAlterar(View view) {
