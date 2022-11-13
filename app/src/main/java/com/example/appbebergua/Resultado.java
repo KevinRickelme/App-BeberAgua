@@ -50,7 +50,6 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         txtResultado = findViewById(R.id.txtResultado);
         txtViewApresentacao.setText(pessoa.Nome + ", " + txtViewApresentacao.getText().toString().toLowerCase(Locale.ROOT));
         txtResultado.setText(Double.valueOf(pessoa.QtdIngerida).intValue()+"/"+ Double.valueOf(pessoa.MetaDiaria).intValue()+"ml");
-//        createNotificationChannel();
 
         btnAlarme = findViewById(R.id.btnAlarme);
         btnConfirma = findViewById(R.id.btnConfirma);
@@ -171,21 +170,6 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         confirmaReset.setNegativeButton("Não", null);
         confirmaReset.create().show();
     }
-
-    /*
-    public void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Lembrete para beber água";
-            String description = "Canal para notificar quando beber água";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("drinkWaterApp", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-    */
 
     public void btnAlarme (View view) {
         Intent it = new Intent(this, Alarmes.class);

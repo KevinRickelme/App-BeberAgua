@@ -60,7 +60,6 @@ public class DadosPessoais extends AppCompatActivity {
             Intent it = new Intent(this, Resultado.class);
             PessoaDAO p = new PessoaDAO(this);
             p.getPessoaFromDb();
-            //setReset();
             startActivity(it);
         }
     }
@@ -70,20 +69,5 @@ public class DadosPessoais extends AppCompatActivity {
             return 45 * peso;
         else
             return 33 * peso;
-    }
-
-    private void setReset(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 47);
-        calendar.set(Calendar.SECOND, 0);
-
-        Intent it = new Intent(this, ResetReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
-                0, it,0);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 }

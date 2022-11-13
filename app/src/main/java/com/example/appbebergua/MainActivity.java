@@ -4,22 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
-
 import android.app.KeyguardManager;
 import android.content.Intent;
-
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.concurrent.Executor;
-
 import DAO.PessoaDAO;
 import model.Pessoa;
-
 import static androidx.biometric.BiometricManager.Authenticators.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         //Ao acessar a tela principal, ele verifica no banco de dados se o usuário já se cadastrou anteriormente
         autenticarDispositivo();
         verificaSeTemCadastro();
-
 
         pessoa = new Pessoa();
         edtNome = findViewById(R.id.edtNome);
@@ -98,11 +91,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         if (keyguardManager.isDeviceSecure()) {
             promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("Biometric login for my app")
-                    .setSubtitle("Log in using your biometric credential")
+                    .setTitle("Autenticação")
+                    .setSubtitle("Utilize biometria ou alguma outra autenticação")
                     .setAllowedAuthenticators(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)
                     .build();
 
@@ -112,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Autenticação não está configurada",
                     Toast.LENGTH_SHORT).show();
         }
-
     }
 }
 
