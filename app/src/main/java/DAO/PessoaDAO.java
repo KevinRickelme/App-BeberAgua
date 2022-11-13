@@ -10,7 +10,7 @@ import model.Pessoa;
 import util.ConnectionFactory;
 
 public class PessoaDAO {
-    private ConnectionFactory banco;
+    private final ConnectionFactory banco;
     private SQLiteDatabase db;
 
     public PessoaDAO(Context context){
@@ -38,7 +38,7 @@ public class PessoaDAO {
         Pessoa pessoa = new Pessoa();
 
         try {
-            cursor = db.query(banco.TABELA, campos, null, null,null,null,null,"1");
+            cursor = db.query(ConnectionFactory.TABELA, campos, null, null,null,null,null,"1");
             if(cursor != null && cursor.moveToLast()) {
                 pessoa.Nome = cursor.getString(cursor.getColumnIndexOrThrow("Nome"));
                 pessoa.Peso = cursor.getDouble(cursor.getColumnIndexOrThrow("Peso"));

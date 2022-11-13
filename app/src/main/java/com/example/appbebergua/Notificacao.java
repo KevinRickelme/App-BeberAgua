@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Notificacao extends AppCompatActivity {
 
-    private Context context;
+    private final Context context;
 
     private static long startTimeInMillis;
     private static long endTime;

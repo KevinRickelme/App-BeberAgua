@@ -8,12 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,8 +66,6 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         opcoesQtdAguaIngerida.setOnItemSelectedListener(this);
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,7 +188,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
     */
 
     public void btnAlarme (View view) {
-        Intent it = new Intent(this, activity_alarmes.class);
+        Intent it = new Intent(this, Alarmes.class);
         startActivity(it);
     }
 }
