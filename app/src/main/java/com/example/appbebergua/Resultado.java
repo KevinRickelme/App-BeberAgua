@@ -8,12 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +50,6 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         txtResultado = findViewById(R.id.txtResultado);
         txtViewApresentacao.setText(pessoa.Nome + ", " + txtViewApresentacao.getText().toString().toLowerCase(Locale.ROOT));
         txtResultado.setText(Double.valueOf(pessoa.QtdIngerida).intValue()+"/"+ Double.valueOf(pessoa.MetaDiaria).intValue()+"ml");
-//        createNotificationChannel();
 
         btnAlarme = findViewById(R.id.btnAlarme);
         btnConfirma = findViewById(R.id.btnConfirma);
@@ -69,8 +65,6 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         opcoesQtdAguaIngerida.setOnItemSelectedListener(this);
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -177,23 +171,8 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         confirmaReset.create().show();
     }
 
-    /*
-    public void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Lembrete para beber água";
-            String description = "Canal para notificar quando beber água";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("drinkWaterApp", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-    */
-
     public void btnAlarme (View view) {
-        Intent it = new Intent(this, activity_alarmes.class);
+        Intent it = new Intent(this, Alarmes.class);
         startActivity(it);
     }
 }

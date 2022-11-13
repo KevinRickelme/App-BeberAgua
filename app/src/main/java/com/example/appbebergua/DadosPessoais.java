@@ -2,6 +2,9 @@ package com.example.appbebergua;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +13,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import DAO.PessoaDAO;
 import model.Pessoa;
@@ -41,13 +46,8 @@ public class DadosPessoais extends AppCompatActivity {
         else{
             int selectedId = praticaExercicio.getCheckedRadioButtonId();
             // find the radiobutton by returned id
-            botaoSelecionado = (RadioButton)findViewById(selectedId);
-            if(botaoSelecionado.getText().equals("Sim")){
-                pessoa.PraticaExercicio = true;
-            }
-            else{
-                pessoa.PraticaExercicio = false;
-            }
+            botaoSelecionado = findViewById(selectedId);
+            pessoa.PraticaExercicio = botaoSelecionado.getText().equals("Sim");
         }
         edtPeso = findViewById(R.id.edtPeso);
         pessoa.Peso = Float.valueOf(String.valueOf(edtPeso.getText()));

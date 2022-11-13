@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-public class activity_alarmes extends AppCompatActivity {
+public class Alarmes extends AppCompatActivity {
 
     private EditText edtHoraOuMinuto, edtMinutoOuSegundo;
     private RadioButton rdbAlarme, rdbTimer;

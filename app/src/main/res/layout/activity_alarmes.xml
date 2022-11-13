@@ -19,6 +19,7 @@
         android:id="@+id/btnSetAlarm"
         android:layout_width="240dp"
         android:layout_height="56dp"
+        android:onClick="btnAlarme"
         android:text="Programar alarme"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
