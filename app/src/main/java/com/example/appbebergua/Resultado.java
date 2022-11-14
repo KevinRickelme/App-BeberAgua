@@ -127,6 +127,8 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
             pessoaDAO.atualizaQtdIngerida(qtdIngerida);
             pessoa = pessoaDAO.getPessoaFromDb();
             txtResultado.setText(Double.valueOf(pessoa.QtdIngerida).intValue()+"/"+ Double.valueOf(pessoa.MetaDiaria).intValue()+"ml");
+            Intent it = new Intent(this, Alarmes.class);
+            startActivity(it);
         }
     }
 

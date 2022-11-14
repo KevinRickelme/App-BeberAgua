@@ -32,7 +32,6 @@ public class Alarmes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmes);
 
-        createNotificationChannel();
         edtHoraOuMinuto = findViewById(R.id.edtHoraOuMinuto);
         edtMinutoOuSegundo = findViewById(R.id.edtMinutoOuSegundo);
         btnSetAlarm = findViewById(R.id.btnSetAlarm);
@@ -40,11 +39,13 @@ public class Alarmes extends AppCompatActivity {
         rdbTimer = findViewById(R.id.rdbTimer);
 
         rdbAlarme.setOnClickListener(view -> {
+            btnSetAlarm.setText("Programar alarme");
             edtHoraOuMinuto.setHint("Digite a hora.");
             edtMinutoOuSegundo.setHint("Digite o minuto.");
         });
 
         rdbTimer.setOnClickListener(view -> {
+            btnSetAlarm.setText("Programar timer");
             edtHoraOuMinuto.setHint("Digite os minutos.");
             edtMinutoOuSegundo.setHint("Digite os segundos.");
         });
@@ -88,6 +89,7 @@ public class Alarmes extends AppCompatActivity {
                 setEndTime();
                 notificacao.setNotificationAlarm();
             }
+            finish();
         }
     }
 
@@ -125,20 +127,6 @@ public class Alarmes extends AppCompatActivity {
         edtHoraOuMinuto.setText(null);
         edtMinutoOuSegundo.setText(null);
         return true;
-    }
-
-    //Métodos para a notificação
-    public void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Lembrete para beber água";
-            String description = "Canal para notificar quando beber água";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("drinkWaterApp", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 
     //Método para fechar o teclado
