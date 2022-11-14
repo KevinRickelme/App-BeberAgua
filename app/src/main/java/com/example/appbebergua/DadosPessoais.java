@@ -57,10 +57,9 @@ public class DadosPessoais extends AppCompatActivity {
 
         long resultado = pessoaDao.insert(pessoa);
         if( resultado != -1){
-            Intent it = new Intent(this, Resultado.class);
-            PessoaDAO p = new PessoaDAO(this);
-            p.getPessoaFromDb();
+            it = new Intent(this, Resultado.class);
             startActivity(it);
+            finishAfterTransition();
         }
     }
 

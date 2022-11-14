@@ -1,6 +1,10 @@
 package com.example.appbebergua;
 
+import static com.example.appbebergua.Notificacao.getEndTime;
+import static com.example.appbebergua.Notificacao.isTimerRunning;
+import static com.example.appbebergua.Notificacao.setEndTime;
 import static com.example.appbebergua.Notificacao.setStartTimeInMillis;
+import static com.example.appbebergua.Notificacao.setTimerRunning;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +47,6 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
 
         pessoaDAO = new PessoaDAO(this);
         it = getIntent();
-        it.getBooleanExtra("primeiroAcesso", false);
         pessoa = (Pessoa)it.getSerializableExtra("Pessoa");
         setContentView(R.layout.activity_resultado);
         txtViewApresentacao = findViewById(R.id.textView2);
@@ -76,7 +79,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemConfiguracoes:
-                Intent it = new Intent(this, DadosPessoais.class);
+                Intent it = new Intent(this, Config.class);
                 startActivity(it);
                 return true;
 
@@ -89,7 +92,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         return super.onOptionsItemSelected(item);
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view,
+    public void onItemSelected(@NonNull AdapterView<?> parent, View view,
                                int pos, long id) {
         //Obter o item selecionado
         respostaUser = parent.getItemAtPosition(pos).toString();
@@ -144,14 +147,15 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Notificacao notificacao = new Notificacao(this, alarmManager);
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        boolean timerRunning = prefs.getBoolean("timerRunning", false);
+        if (System.currentTimeMillis() > getEndTime())
+            setTimerRunning(false);
+        boolean timerRunning = isTimerRunning();
         if(timerRunning){
             notificacao.cancelNotificationAlarm();
-        } else {
-            //setStartTimeInMillis(30 * 1000 * 60);
-            setStartTimeInMillis(3000);
-            notificacao.setNotificationAlarm();
         }
+        setStartTimeInMillis(3000);
+        setEndTime();
+        notificacao.setNotificationAlarm();
     }
 
     public void resetMeta(){

@@ -67,6 +67,7 @@
         android:id="@+id/btnAlarme"
         android:layout_width="227dp"
         android:layout_height="56dp"
+        android:onClick="btnAlarme"
         android:text="Configurar alarme"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
