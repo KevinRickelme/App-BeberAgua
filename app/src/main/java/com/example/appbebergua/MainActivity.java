@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private BiometricPrompt.PromptInfo promptInfo;
     private KeyguardManager keyguardManager;
     private PessoaDAO pessoaDAO;
+    private boolean autenticado = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
         pessoaDAO = new PessoaDAO(this);
         //Ao acessar a tela principal, ele verifica no banco de dados se o usuário já se cadastrou anteriormente
-        autenticarDispositivo();
+        if(!autenticado)
+            autenticarDispositivo();
         verificaSeTemCadastro();
 
         pessoa = new Pessoa();
@@ -54,14 +56,12 @@ public class MainActivity extends AppCompatActivity {
             pessoa.Nome = String.valueOf(edtNome.getText());
             return false;
         });
-
-
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        if (!cadastrado()) {
+        if (!pessoaDAO.hasData()) {
             edtNome.setVisibility(View.VISIBLE);
             btnIniciar.setText("Iniciar");
             btnIniciar.setEnabled(false);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnIniciar(View view) {
         Intent it;
-        if (cadastrado()) {
+        if (pessoaDAO.hasData()) {
             PessoaDAO pessoaDAO = new PessoaDAO(this);
             it = new Intent(this, Resultado.class);
             it.putExtra("Pessoa", pessoaDAO.getPessoaFromDb());
@@ -86,15 +86,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void verificaSeTemCadastro() {
-        if (cadastrado()) {
+        if (pessoaDAO.hasData()) {
             Intent it = new Intent(this, Resultado.class);
             it.putExtra("Pessoa", pessoaDAO.getPessoaFromDb());
             startActivity(it);
         }
-    }
-
-    private boolean cadastrado() {
-        return (pessoaDAO.hasData());
     }
 
     private void autenticarDispositivo() {
@@ -109,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onAuthenticationError(errorCode, errString);
                 Toast.makeText(getApplicationContext(),
                         "Erro: " + errString, Toast.LENGTH_SHORT).show();
+                autenticado = false;
             }
 
             @Override
@@ -117,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(getApplicationContext(),
                         "Bem-vindo!", Toast.LENGTH_SHORT).show();
+                autenticado = true;
             }
 
             @Override
@@ -124,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onAuthenticationFailed();
                 Toast.makeText(getApplicationContext(), "Autenticação não está configurada",
                         Toast.LENGTH_SHORT).show();
+                autenticado = true;
             }
         });
 
@@ -139,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Autenticação não está configurada",
                     Toast.LENGTH_SHORT).show();
+            autenticado = true;
         }
     }
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Lembrete para beber água";
             String description = "Canal para notificar quando beber água";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("drinkWaterApp", name, importance);
             channel.setDescription(description);
 

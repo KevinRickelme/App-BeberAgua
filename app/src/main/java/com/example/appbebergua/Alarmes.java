@@ -1,22 +1,30 @@
 package com.example.appbebergua;
 
 import static com.example.appbebergua.Notificacao.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.AlarmClock;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.time.LocalDateTime;
+import java.util.Calendar;
 
 public class Alarmes extends AppCompatActivity {
 
@@ -26,6 +34,7 @@ public class Alarmes extends AppCompatActivity {
     //private boolean alarmeProgramado;
     private Notificacao notificacao;
     private Button btnSetAlarm;
+    private TextView txtTimerRodando;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,7 @@ public class Alarmes extends AppCompatActivity {
         btnSetAlarm = findViewById(R.id.btnSetAlarm);
         rdbAlarme = findViewById(R.id.rdbAlarme);
         rdbTimer = findViewById(R.id.rdbTimer);
+        txtTimerRodando = findViewById(R.id.txtTimerRodando);
 
         rdbAlarme.setOnClickListener(view -> {
             btnSetAlarm.setText("Programar alarme");
@@ -45,15 +55,12 @@ public class Alarmes extends AppCompatActivity {
         });
 
         rdbTimer.setOnClickListener(view -> {
-            btnSetAlarm.setText("Programar timer");
-            edtHoraOuMinuto.setHint("Digite os minutos.");
-            edtMinutoOuSegundo.setHint("Digite os segundos.");
+                btnSetAlarm.setText("Programar timer");
+                edtHoraOuMinuto.setHint("Digite os minutos.");
+                edtMinutoOuSegundo.setHint("Digite os segundos.");
         });
 
-        btnSetAlarm.setOnClickListener(view ->{
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            notificacao = new Notificacao(this, alarmManager);
-            notificacao.setNotificationAlarm();
+        btnSetAlarm.setOnClickListener(view -> {
             closeKeyboard();
             if (rdbAlarme.isChecked()) {
                 setAlarme();
@@ -63,38 +70,70 @@ public class Alarmes extends AppCompatActivity {
         });
     }
 
-    public void setAlarme(){
-        int hour = Integer.parseInt(edtHoraOuMinuto.getText().toString());
-        int minute = Integer.parseInt(edtMinutoOuSegundo.getText().toString());
+    public void setAlarme() {
+        String hourInput = edtHoraOuMinuto.getText().toString();
+        String minuteInput = edtMinutoOuSegundo.getText().toString();
+        if (hourInput.length() > 0 && minuteInput.length() > 0) {
+            int hour = Integer.parseInt(hourInput);
+            int minute = Integer.parseInt(minuteInput);
 
-        Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
-        intent.putExtra(AlarmClock.EXTRA_HOUR, hour);
-        intent.putExtra(AlarmClock.EXTRA_MINUTES, minute);
-        intent.putExtra(AlarmClock.EXTRA_MESSAGE, "Tomar água");
+            Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+            intent.putExtra(AlarmClock.EXTRA_HOUR, hour);
+            intent.putExtra(AlarmClock.EXTRA_MINUTES, minute);
+            intent.putExtra(AlarmClock.EXTRA_MESSAGE, "Tomar água");
 
-        if (correctInputAlarme(hour, minute)) {
-            escolhaUsuario = "alarme";
-            startActivity(intent);
+            if (correctInputAlarme(hour, minute)) {
+                escolhaUsuario = "alarme";
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Digite um valor válido!", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(this, "Os campos não podem ser vazios!", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void setTimer(){
+    public void setTimer() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Notificacao notificacao = new Notificacao(this, alarmManager);
         String inputMinutos = edtHoraOuMinuto.getText().toString();
         String inputSegundos = edtMinutoOuSegundo.getText().toString();
-        if(correctInputTimer(inputMinutos, inputSegundos)) {
+        if (correctInputTimer(inputMinutos, inputSegundos)) {
             escolhaUsuario = "timer";
             if (isTimerRunning()) {
-                Toast.makeText(this, "Timer já definido!", Toast.LENGTH_LONG).show();
+                perguntarReprogramarTimer();
             } else {
-                setEndTime();
-                notificacao.setNotificationAlarm();
+                notificar();
             }
-            finish();
         }
     }
 
-    public boolean correctInputAlarme(int hour, int minute){
-        return hour <= 24 && hour > 0 && minute <= 60;
+    private void perguntarReprogramarTimer(){
+
+        AlertDialog.Builder confirmaReprog = new AlertDialog.Builder(Alarmes.this);
+        confirmaReprog.setTitle("Atenção !!")
+                .setMessage("Já há um timer rodando, deseja redefini-lo?")
+                .setCancelable(false)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        notificar();
+                    }
+                });
+        confirmaReprog.setNegativeButton("Não", null);
+        confirmaReprog.create().show();
+    }
+
+    private void notificar() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        notificacao = new Notificacao(this, alarmManager);
+        setEndTime();
+        notificacao.setNotificationAlarm();
+        finish();
+    }
+
+    public boolean correctInputAlarme(int hour, int minute) {
+        return hour <= 24 && hour > 0 && minute <= 60 && minute >= 0;
     }
 
     //Métodos para o timer
@@ -102,7 +141,7 @@ public class Alarmes extends AppCompatActivity {
         long millisInputSegundos, millisInputMinutos;
 
         if (minutos.length() == 0 && segundos.length() == 0) {
-            Toast.makeText(this, "Os campos não podem ser vazio!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Os campos não podem ser vazios!", Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -147,6 +186,9 @@ public class Alarmes extends AppCompatActivity {
 
         setStartTimeInMillis(prefs.getLong("startTimeInMillis", 10000));
         setTimerRunning(prefs.getBoolean("timerRunning", false));
+        if (System.currentTimeMillis() > getEndTime())
+            setTimerRunning(false);
+
     }
 
     //Método que "salva" os valores quando o app é fechado
@@ -158,7 +200,6 @@ public class Alarmes extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
 
         editor.putLong("startTimeInMillis", getStartTimeInMillis());
-        //editor.putLong("millisLeft", getTimeLeftInMillis());
         editor.putLong("endTime", getEndTime());
         editor.putBoolean("timerRunning", isTimerRunning());
         editor.apply();

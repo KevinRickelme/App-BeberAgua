@@ -14,7 +14,7 @@ public class Notificacao extends AppCompatActivity {
 
     private static long startTimeInMillis;
     private static long endTime;
-    private static boolean timerRunning;
+    private static boolean timerRunning = false;
     public AlarmManager alarmManager;
 
     public Notificacao(Context context, AlarmManager alarmManager){
@@ -24,7 +24,6 @@ public class Notificacao extends AppCompatActivity {
 
     public void setNotificationAlarm() {
         Intent it = new Intent(context, NotificacaoReceiver.class);
-        it.putExtra("primeiroAcesso", false);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context, 0, it, 0);
 
@@ -33,6 +32,7 @@ public class Notificacao extends AppCompatActivity {
                 pendingIntent);
 
         Toast.makeText(context, "Alarme definido.", Toast.LENGTH_SHORT).show();
+        timerRunning = true;
     }
 
 
@@ -40,9 +40,10 @@ public class Notificacao extends AppCompatActivity {
         Intent it = new Intent(context, NotificacaoReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context, 0, it, 0);
-        AlarmManager  alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        //AlarmManager  alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
-        Toast.makeText(context, "Alarme cancelado.", Toast.LENGTH_SHORT).show();
+        timerRunning = false;
+        //Toast.makeText(context, "Alarme cancelado.", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -72,5 +73,4 @@ public class Notificacao extends AppCompatActivity {
     public static void setTimerRunning(boolean _timerRunning) {
         timerRunning = _timerRunning;
     }
-
 }
