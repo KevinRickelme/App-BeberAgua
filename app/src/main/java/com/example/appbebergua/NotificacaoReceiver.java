@@ -15,7 +15,7 @@ public class NotificacaoReceiver extends BroadcastReceiver {
         String message = "Hora de beber água!!!";
         String title = "Atenção!";
 
-        Intent activityIntent = new Intent(context, Resultado.class);
+        Intent activityIntent = new Intent(context, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context,
                 0, activityIntent, 0);
 
