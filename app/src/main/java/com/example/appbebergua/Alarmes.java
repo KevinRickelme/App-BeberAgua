@@ -34,7 +34,6 @@ public class Alarmes extends AppCompatActivity {
     //private boolean alarmeProgramado;
     private Notificacao notificacao;
     private Button btnSetAlarm;
-    private TextView txtTimerRodando;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,6 @@ public class Alarmes extends AppCompatActivity {
         btnSetAlarm = findViewById(R.id.btnSetAlarm);
         rdbAlarme = findViewById(R.id.rdbAlarme);
         rdbTimer = findViewById(R.id.rdbTimer);
-        txtTimerRodando = findViewById(R.id.txtTimerRodando);
 
         rdbAlarme.setOnClickListener(view -> {
             btnSetAlarm.setText("Programar alarme");
