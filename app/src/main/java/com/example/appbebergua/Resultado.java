@@ -48,6 +48,8 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         pessoaDAO = new PessoaDAO(this);
         it = getIntent();
         pessoa = (Pessoa)it.getSerializableExtra("Pessoa");
+        if(pessoa == null)
+            pessoa = pessoaDAO.getPessoaFromDb();
         setContentView(R.layout.activity_resultado);
         txtViewApresentacao = findViewById(R.id.textView2);
         txtResultado = findViewById(R.id.txtResultado);
