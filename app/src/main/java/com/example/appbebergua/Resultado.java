@@ -51,7 +51,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         if(pessoa == null)
             pessoa = pessoaDAO.getPessoaFromDb();
         setContentView(R.layout.activity_resultado);
-        txtViewApresentacao = findViewById(R.id.textView2);
+        txtViewApresentacao = findViewById(R.id.txtApresentacao);
         txtResultado = findViewById(R.id.txtResultado);
         txtViewApresentacao.setText(pessoa.Nome + ", " + txtViewApresentacao.getText().toString().toLowerCase(Locale.ROOT));
         txtResultado.setText(Double.valueOf(pessoa.QtdIngerida).intValue()+"/"+ Double.valueOf(pessoa.MetaDiaria).intValue()+"ml");

@@ -6,116 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".Config">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
-        android:gravity="center_horizontal"
-        android:text="Pratica exercícios?"
-        android:textColor="#8C9EFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtExercicios"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.283"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:gravity="center_horizontal"
-        android:text="Peso:"
-        android:textColor="#8C9EFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtExercicios"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/txtPeso"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
-        android:gravity="center_horizontal"
-        android:text=""
-        android:textColor="@color/purple_200"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtExercicios"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
 
-    <TextView
-        android:id="@+id/txtExercicios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="252dp"
-        android:gravity="center_horizontal"
-        android:text=""
-        android:textColor="@color/purple_200"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAlterar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.25" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/container_header" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/container_header"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txtNomeConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center_horizontal"
+            android:text="Seus dados guardados aqui:"
+            android:textColor="#8C9EFF"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Seus dados guardados aqui:"
-        android:textColor="#8C9EFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Peso:"
+            android:textColor="#8C9EFF"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btnAlterar"
-        android:layout_width="240dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="36dp"
-        android:text="Alterar dados"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/txtPesoConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textColor="@color/purple_200"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="356dp"
-        android:layout_height="165dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.954"
-        app:srcCompat="@drawable/copos" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Pratica exercícios?"
+            android:textColor="#8C9EFF"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtPraticaExercicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:minHeight="48dp"
+            android:onClick="btnAlterar"
+            android:textAlignment="center"
+            android:textColor="@color/purple_200"
+            android:textSize="30sp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnAlterar"
+            android:layout_width="256dp"
+            android:layout_height="61dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="0dp"
+            android:backgroundTint="#81B0FE"
+            android:onClick="btnAlterar"
+            android:text="Alterar dados"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPraticaExercicio" />
+
+        <Button
+            android:id="@+id/btnAlarme"
+            android:layout_width="256dp"
+            android:layout_height="61dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="0dp"
+            android:backgroundTint="#81B0FE"
+            android:onClick="btnAlarme"
+            android:text="Configurar alarme"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPraticaExercicio" />
+
+        <ImageView
+            android:id="@+id/imgCopoConfig"
+            android:layout_width="298dp"
+            android:layout_height="118dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@drawable/copos" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

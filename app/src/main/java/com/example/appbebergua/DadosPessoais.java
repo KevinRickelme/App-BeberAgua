@@ -2,9 +2,6 @@ package com.example.appbebergua;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +10,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Calendar;
 
 import DAO.PessoaDAO;
 import model.Pessoa;
@@ -26,15 +21,18 @@ public class DadosPessoais extends AppCompatActivity {
     private EditText edtPeso;
     private RadioGroup praticaExercicio;
     private RadioButton botaoSelecionado;
+    PessoaDAO pessoaDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dados_pessoais);
-
-        txtNome = findViewById(R.id.txtNome);
+        pessoaDAO = new PessoaDAO(this);
+        txtNome = findViewById(R.id.txtNomeConfig);
         it = getIntent();
         pessoa = (Pessoa)it.getSerializableExtra("Pessoa");
+        if(pessoa == null)
+            pessoa = pessoaDAO.getPessoaFromDb();
         txtNome.setText(pessoa.Nome);
 
         praticaExercicio = findViewById(R.id.radioGroup);
@@ -53,9 +51,13 @@ public class DadosPessoais extends AppCompatActivity {
         pessoa.Peso = Float.valueOf(String.valueOf(edtPeso.getText()));
         pessoa.MetaDiaria = calcularQtdAIngerir(pessoa.Peso, pessoa.PraticaExercicio);
 
-        PessoaDAO pessoaDao = new PessoaDAO(this);
 
-        long resultado = pessoaDao.insert(pessoa);
+        long resultado;
+        if (pessoaDAO.hasData()){
+            resultado= pessoaDAO.update(pessoa);
+        } else {
+            resultado = pessoaDAO.insert(pessoa);
+        }
         if( resultado != -1){
             it = new Intent(this, Resultado.class);
             startActivity(it);

@@ -31,6 +31,21 @@ public class PessoaDAO {
         return result;
     }
 
+    public long update(Pessoa pessoa){
+
+        db = banco.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Nome", pessoa.Nome);
+        values.put("Peso", pessoa.Peso);
+        values.put("PraticaExercicio", pessoa.PraticaExercicio);
+        values.put("MetaDiaria", pessoa.MetaDiaria);
+        values.put("QtdIngerida", pessoa.QtdIngerida);
+        String where = "Id=1";
+        long result = db.update("Pessoa", values, where, null);
+        db.close();
+        return result;
+    }
+
     public Pessoa getPessoaFromDb(){
         String[] campos = {"Nome","Peso","PraticaExercicio","MetaDiaria","QtdIngerida"};
         db = banco.getReadableDatabase();
