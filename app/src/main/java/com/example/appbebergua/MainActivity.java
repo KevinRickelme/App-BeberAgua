@@ -43,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
         pessoaDAO = new PessoaDAO(this);
         //Ao acessar a tela principal, ele verifica no banco de dados se o usuário já se cadastrou anteriormente
-        if(!autenticado)
+        if(!autenticado){
             autenticarDispositivo();
-        verificaSeTemCadastro();
+        }
+        if(autenticado) verificaSeTemCadastro();
 
         pessoa = new Pessoa();
         edtNome = findViewById(R.id.edtNome);
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             btnIniciar.setText("Iniciar");
             btnIniciar.setEnabled(false);
         } else {
-            edtNome.setVisibility(View.INVISIBLE);
+            edtNome.setVisibility(View.GONE);
             btnIniciar.setEnabled(true);
             btnIniciar.setText("Meta diária");
         }
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Erro: " + errString, Toast.LENGTH_SHORT).show();
                 autenticado = false;
+                finish();
             }
 
             @Override
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Bem-vindo!", Toast.LENGTH_SHORT).show();
                 autenticado = true;
+                verificaSeTemCadastro();
             }
 
             @Override
