@@ -98,6 +98,7 @@ public class Alarmes extends AppCompatActivity {
         String inputSegundos = edtMinutoOuSegundo.getText().toString();
         if (correctInputTimer(inputMinutos, inputSegundos)) {
             escolhaUsuario = "timer";
+            verificaAlarmeNotificacao();
             if (isTimerRunning()) {
                 perguntarReprogramarTimer();
             } else {
@@ -126,6 +127,7 @@ public class Alarmes extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         notificacao = new Notificacao(this, alarmManager);
         setEndTime();
+        setTimerRunning(true);
         notificacao.setNotificationAlarm();
         finish();
     }
@@ -166,6 +168,11 @@ public class Alarmes extends AppCompatActivity {
         return true;
     }
 
+    private void verificaAlarmeNotificacao(){
+        if (System.currentTimeMillis() > getEndTime())
+            setTimerRunning(false);
+    }
+
     //Método para fechar o teclado
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
@@ -184,8 +191,9 @@ public class Alarmes extends AppCompatActivity {
 
         setStartTimeInMillis(prefs.getLong("startTimeInMillis", 10000));
         setTimerRunning(prefs.getBoolean("timerRunning", false));
-        if (System.currentTimeMillis() > getEndTime())
-            setTimerRunning(false);
+        setEndTime(prefs.getLong("endTime", 0));
+
+        verificaAlarmeNotificacao();
 
     }
 
@@ -200,6 +208,7 @@ public class Alarmes extends AppCompatActivity {
         editor.putLong("startTimeInMillis", getStartTimeInMillis());
         editor.putLong("endTime", getEndTime());
         editor.putBoolean("timerRunning", isTimerRunning());
+
         editor.apply();
 
     }

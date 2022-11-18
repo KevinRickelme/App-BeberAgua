@@ -70,6 +70,10 @@ public class Notificacao extends AppCompatActivity {
         endTime = System.currentTimeMillis() + startTimeInMillis;
     }
 
+    public static void setEndTime(long _endTime){
+        endTime = _endTime;
+    }
+
     public static void setTimerRunning(boolean _timerRunning) {
         timerRunning = _timerRunning;
     }

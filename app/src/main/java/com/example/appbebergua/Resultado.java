@@ -155,7 +155,10 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         if(timerRunning){
             notificacao.cancelNotificationAlarm();
         }
-        setStartTimeInMillis(3000);
+        //setStartTimeInMillis(30 * 1000 * 60); -> 30 minutos
+        //1 min - 60 seg
+        //1 seg - 1000 milis
+        setStartTimeInMillis(6000); //utilização somente para apresentação.
         setEndTime();
         notificacao.setNotificationAlarm();
     }
