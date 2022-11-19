@@ -2,6 +2,7 @@ package com.example.appbebergua;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
@@ -11,6 +12,8 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
         pessoaDAO = new PessoaDAO(this);
         //Ao acessar a tela principal, ele verifica no banco de dados se o usuário já se cadastrou anteriormente
         if(!autenticado){
-            autenticarDispositivo();
+            try{autenticarDispositivo();}
+            catch (Exception ex){
+                Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG);
+                autenticado = true;
+            }
         }
         if(autenticado) verificaSeTemCadastro();
 
