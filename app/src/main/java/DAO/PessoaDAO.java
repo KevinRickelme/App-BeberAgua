@@ -22,7 +22,7 @@ public class PessoaDAO {
         ContentValues values = new ContentValues();
         values.put("Nome", pessoa.Nome);
         values.put("Peso", pessoa.Peso);
-        values.put("PraticaExercicio", pessoa.PraticaExercicio);
+        values.put("PraticaExercicio", pessoa.PraticaExercicio == true ? 1 : 0);
         values.put("MetaDiaria", pessoa.MetaDiaria);
         values.put("QtdIngerida", pessoa.QtdIngerida);
 
@@ -37,7 +37,7 @@ public class PessoaDAO {
         ContentValues values = new ContentValues();
         values.put("Nome", pessoa.Nome);
         values.put("Peso", pessoa.Peso);
-        values.put("PraticaExercicio", pessoa.PraticaExercicio);
+        values.put("PraticaExercicio", pessoa.PraticaExercicio == true ? 1 : 0);
         values.put("MetaDiaria", pessoa.MetaDiaria);
         values.put("QtdIngerida", pessoa.QtdIngerida);
         String where = "Id=1";
@@ -57,7 +57,8 @@ public class PessoaDAO {
             if(cursor != null && cursor.moveToLast()) {
                 pessoa.Nome = cursor.getString(cursor.getColumnIndexOrThrow("Nome"));
                 pessoa.Peso = cursor.getDouble(cursor.getColumnIndexOrThrow("Peso"));
-                pessoa.PraticaExercicio = Boolean.valueOf((cursor.getString(cursor.getColumnIndexOrThrow("PraticaExercicio"))));
+                int exercicio = (cursor.getInt(cursor.getColumnIndexOrThrow("PraticaExercicio")));
+                pessoa.PraticaExercicio = Boolean.valueOf(exercicio == 1);
                 pessoa.MetaDiaria = cursor.getDouble(cursor.getColumnIndexOrThrow("MetaDiaria"));
                 pessoa.QtdIngerida = cursor.getDouble(cursor.getColumnIndexOrThrow("QtdIngerida"));
             }
