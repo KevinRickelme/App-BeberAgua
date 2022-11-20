@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         createNotificationChannel();
         pessoaDAO = new PessoaDAO(this);
-        //Ao acessar a tela principal, ele verifica no banco de dados se o usuário já se cadastrou anteriormente
+
+        //Só irá pedir a autenticação ao abrir o app, caso volte para a tela inicial
+        //o app não irá pedir autenticação novamente
         if(!autenticado){
             try{autenticarDispositivo();}
             catch (Exception ex){
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 autenticado = true;
             }
         }
+        //Ao acessar a tela principal, ele verifica no banco de dados se o usuário já se cadastrou anteriormente
+        //e se já está cadastrado.
         if(autenticado) verificaSeTemCadastro();
 
         pessoa = new Pessoa();
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Método que é executado sempre que o usuário volta para a tela inicial
     @Override
     public void onResume(){
         super.onResume();
@@ -80,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Método que é executado quando o botão iniciar é pressionado. Caso o usuário já esteja
+    //cadastrado o botão leva para a tela de resultado, caso contrário ele irá para a tela de
+    //dados pessoais
     public void btnIniciar(View view) {
         Intent it;
         if (pessoaDAO.hasData()) {
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(it);
     }
 
+    //Verifica se o usuário já possui cadastro
     public void verificaSeTemCadastro() {
         if (pessoaDAO.hasData()) {
             Intent it = new Intent(this, Resultado.class);
@@ -101,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Método responsável pela biometria, caso não tenha biometria cadastrada ele deverá pedir
+    //a autenticação disponível, caso não tenha autenticação ele mostra uma mensagem e autentica
     private void autenticarDispositivo() {
 
         keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);

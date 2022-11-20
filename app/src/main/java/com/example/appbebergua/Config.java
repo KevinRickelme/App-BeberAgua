@@ -50,6 +50,7 @@ public class Config extends Activity {
         imgCopoConfig.setImageDrawable(getDrawable(R.drawable.copos));
     }
 
+    //Chama a tela de dados pessoais para atualizar os dados
     public void btnAlterar(View view) {
         Intent it;
         it = new Intent(this, DadosPessoais.class);
@@ -57,6 +58,7 @@ public class Config extends Activity {
         this.finish();
     }
 
+    //Chama a tela de alarme para definir um alarme ou timer
     public void btnAlarme(View view) {
         Intent it;
         it = new Intent(this, Alarmes.class);

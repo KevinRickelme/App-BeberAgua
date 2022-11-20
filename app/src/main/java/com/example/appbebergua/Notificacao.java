@@ -22,6 +22,7 @@ public class Notificacao extends AppCompatActivity {
         this.alarmManager = alarmManager;
     }
 
+    //Método que define o horário que a notificação será exibida para o usuário
     public void setNotificationAlarm() {
         Intent it = new Intent(context, NotificacaoReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -35,7 +36,7 @@ public class Notificacao extends AppCompatActivity {
         timerRunning = true;
     }
 
-
+    //Método que cancela a notificação que deveria ser exibida
     public void cancelNotificationAlarm(){
         Intent it = new Intent(context, NotificacaoReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -47,6 +48,7 @@ public class Notificacao extends AppCompatActivity {
     }
 
 
+    //Seção de getters e setters da classe
     //Getters
     public static long getStartTimeInMillis() {
         return startTimeInMillis;

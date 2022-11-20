@@ -46,6 +46,8 @@ public class Alarmes extends AppCompatActivity {
         rdbAlarme = findViewById(R.id.rdbAlarme);
         rdbTimer = findViewById(R.id.rdbTimer);
 
+
+        //Métodos que observam o comportamente de click dos radio buttons
         rdbAlarme.setOnClickListener(view -> {
             btnSetAlarm.setText("Programar alarme");
             edtHoraOuMinuto.setHint("Digite a hora.");
@@ -58,6 +60,7 @@ public class Alarmes extends AppCompatActivity {
                 edtMinutoOuSegundo.setHint("Digite os segundos.");
         });
 
+        //Ação de click do botão alarme
         btnSetAlarm.setOnClickListener(view -> {
             closeKeyboard();
             if (rdbAlarme.isChecked()) {
@@ -68,6 +71,9 @@ public class Alarmes extends AppCompatActivity {
         });
     }
 
+    //Método que pega o texto dos campos, chama o método de verificação dos inputs
+    //e caso esteja tudo correto ele abre a tela de alarmes do celular e define o
+    //alarme com a mensagem "Tomar água"
     public void setAlarme() {
         String hourInput = edtHoraOuMinuto.getText().toString();
         String minuteInput = edtMinutoOuSegundo.getText().toString();
@@ -91,6 +97,10 @@ public class Alarmes extends AppCompatActivity {
         }
     }
 
+    //Método que pega o texto dos campos, chama o método de verificação dos inputs
+    //e caso esteja tudo correto ele define o horário em que a notificação irá
+    //aparecer para o usuário, se já houver uma notificação definida será exibida
+    //uma mensagem para o usuário confirmar se quer redefini-la ou não
     public void setTimer() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Notificacao notificacao = new Notificacao(this, alarmManager);
@@ -107,6 +117,8 @@ public class Alarmes extends AppCompatActivity {
         }
     }
 
+    //Método que mostra a mensagem para o usuário confirmar se deseja redefinir em quanto
+    //ele será notificado
     private void perguntarReprogramarTimer(){
 
         AlertDialog.Builder confirmaReprog = new AlertDialog.Builder(Alarmes.this);
@@ -123,6 +135,8 @@ public class Alarmes extends AppCompatActivity {
         confirmaReprog.create().show();
     }
 
+    //Método responsável por definir o horário em que o usuário será notificado e salvar
+    //a informação de que há uma notificação definida
     private void notificar() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         notificacao = new Notificacao(this, alarmManager);
@@ -132,10 +146,12 @@ public class Alarmes extends AppCompatActivity {
         finish();
     }
 
+    //Verifica o input para o alarme
     public boolean correctInputAlarme(int hour, int minute) {
         return hour <= 24 && hour > 0 && minute <= 60 && minute >= 0;
     }
 
+    //Verifica o input para o timer
     //Métodos para o timer
     public boolean correctInputTimer(String minutos, String segundos) {
         long millisInputSegundos, millisInputMinutos;
@@ -168,6 +184,9 @@ public class Alarmes extends AppCompatActivity {
         return true;
     }
 
+    //Verifica se já passou o tempo da notificação
+    //caso já tenha passado o app irá salvar a informação de que
+    //não há mais nenhuma notificação definida
     private void verificaAlarmeNotificacao(){
         if (System.currentTimeMillis() > getEndTime())
             setTimerRunning(false);

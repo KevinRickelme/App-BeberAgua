@@ -17,6 +17,7 @@ public class PessoaDAO {
         banco = new ConnectionFactory(context);
     }
 
+    //Método que insere os dados do usuario no banco de dados
     public long insert(Pessoa pessoa){
         db = banco.getReadableDatabase();
         ContentValues values = new ContentValues();
@@ -31,8 +32,8 @@ public class PessoaDAO {
         return result;
     }
 
+    //Método que faz a atualização dos dados do usuario no banco de dados
     public long update(Pessoa pessoa){
-
         db = banco.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("Nome", pessoa.Nome);
@@ -46,6 +47,7 @@ public class PessoaDAO {
         return result;
     }
 
+    //Retorna os dados da pessoa cadastrada no banco de dados
     public Pessoa getPessoaFromDb(){
         String[] campos = {"Nome","Peso","PraticaExercicio","MetaDiaria","QtdIngerida"};
         db = banco.getReadableDatabase();
@@ -70,10 +72,9 @@ public class PessoaDAO {
             db.close();
             return pessoa;
         }
-
     }
 
-    //verifica se já existo um cadastro
+    //verifica se já existe um cadastro
     public boolean hasData(){
         int contagem = 0;
         db = banco.getReadableDatabase();
@@ -108,6 +109,7 @@ public class PessoaDAO {
         }
     }
 
+    //Atualiza a quantidade de água ingerida pelo usuário para 0
     public void resetQtdIngerida(){
         Pessoa p = new Pessoa();
         p = this.getPessoaFromDb();
@@ -121,7 +123,4 @@ public class PessoaDAO {
             int id=0;
         }
     }
-
-
-
 }

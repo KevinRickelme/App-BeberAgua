@@ -38,6 +38,8 @@ public class DadosPessoais extends AppCompatActivity {
         praticaExercicio = findViewById(R.id.radioGroup);
     }
 
+    //Método responsável pelo botão Calcular e caso os inputs estejam certos ele irá chamar a tela
+    //de resultado após salvar ou atualizar os dados do usuário
     public void btnCalcular(View view) {
         if(praticaExercicio.getCheckedRadioButtonId() == -1)
             Toast.makeText(getApplicationContext(), "Por favor, selecione uma opção de prática de exercícios", Toast.LENGTH_SHORT).show();
@@ -65,6 +67,7 @@ public class DadosPessoais extends AppCompatActivity {
         }
     }
 
+    //Método que calcula a quantidade de água que o usuário deve ingerir
     private double calcularQtdAIngerir(double peso, boolean praticaExercicio) {
         if(praticaExercicio)
             return 45 * peso;

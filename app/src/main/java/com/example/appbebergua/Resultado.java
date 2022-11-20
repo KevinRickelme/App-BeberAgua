@@ -45,12 +45,18 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Pega os dados da pessoa
         pessoaDAO = new PessoaDAO(this);
         it = getIntent();
         pessoa = (Pessoa)it.getSerializableExtra("Pessoa");
+
+        //Verificação, caso o objeto pessoa esteja null por algum motivo há essa
+        //verificação para evitar erros e popular o objeto pessoa
         if(pessoa == null)
             pessoa = pessoaDAO.getPessoaFromDb();
+
         setContentView(R.layout.activity_resultado);
+
         txtViewApresentacao = findViewById(R.id.txtApresentacao);
         txtResultado = findViewById(R.id.txtResultado);
         txtViewApresentacao.setText(pessoa.Nome + ", " + txtViewApresentacao.getText().toString().toLowerCase(Locale.ROOT));
@@ -63,6 +69,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
 
         //Documentação para vincular a lista ao controle
         //https://developer.android.com/guide/topics/ui/controls/spinner.html
+        //Combo box sendo populado
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.medidas_ml, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -71,12 +78,14 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
+    //Método para apresentação
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principal, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    //Método com as ações dos botões localizados no canto superior direito da tela do app
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -94,6 +103,8 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         return super.onOptionsItemSelected(item);
     }
 
+    //Método responsável por observar qual opção está selecionada no combo box,
+    //chamado de Spinner no android
     public void onItemSelected(@NonNull AdapterView<?> parent, View view,
                                int pos, long id) {
         //Obter o item selecionado
@@ -105,10 +116,13 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
+    //Método obrigatório, porém sem uso nesse aplicativo
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
 
+    //Método responsável pelo botão confirma, antes de confirmar ele mostra uma mensagem
+    //para o usuário confirmar
     public void btnConfirma(View view) {
         double qtdIngerida = Double.parseDouble(respostaUser);
         AlertDialog.Builder confirmaAcao = new AlertDialog.Builder(Resultado.this);
@@ -125,6 +139,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         confirmaAcao.create().show();
     }
 
+    //Confirma a quantidade de água ingerida pela pessoa
     private void confirmar(double qtdIngerida){
         if(pessoa.QtdIngerida >= pessoa.MetaDiaria){
             Toast.makeText(this, "Parabéns você alcançou a meta!!!", Toast.LENGTH_LONG).show();
@@ -135,6 +150,8 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         }
     }
 
+    //Método responsável pelo botão adiar antes de confirmar ele mostra uma mensagem
+    //    //para o usuário confirmar
     public void btnAdiar(View view){
         AlertDialog.Builder confirmaAdiar = new AlertDialog.Builder(Resultado.this);
         confirmaAdiar.setTitle("Atenção !!")
@@ -145,6 +162,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         confirmaAdiar.create().show();
     }
 
+    //Adia o evento
     private void adiar(){
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Notificacao notificacao = new Notificacao(this, alarmManager);
@@ -155,7 +173,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         if(timerRunning){
             notificacao.cancelNotificationAlarm();
         }
-        //setStartTimeInMillis(30 * 1000 * 60); -> 30 minutos
+        //setStartTimeInMillis(30 * 1000 * 60); // -> 30 minutos
         //1 min - 60 seg
         //1 seg - 1000 milis
         setStartTimeInMillis(6000); //utilização somente para apresentação.
@@ -163,6 +181,8 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         notificacao.setNotificationAlarm();
     }
 
+    //Método responsável por atualizar a meta diária para 0, antes de confirmar ele mostra uma mensagem
+    //    //para o usuário confirmar
     public void resetMeta(){
         AlertDialog.Builder confirmaReset = new AlertDialog.Builder(Resultado.this);
         confirmaReset.setTitle("Atenção !!")
@@ -180,6 +200,7 @@ public class Resultado extends AppCompatActivity implements AdapterView.OnItemSe
         confirmaReset.create().show();
     }
 
+    //Direciona para a tela de alarmes
     public void btnAlarme (View view) {
         Intent it = new Intent(this, Alarmes.class);
         startActivity(it);

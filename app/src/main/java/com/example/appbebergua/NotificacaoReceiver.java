@@ -9,6 +9,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class NotificacaoReceiver extends BroadcastReceiver {
+
+    //Esse método que torna possível executar a construção da notificação em segundo plano
+    //quando chega o horário definido pelo alarme manager essa classe é chamada e executa o
+    //método onReceive que constrói a notificação e a exibe para o usuário
     @Override
     public void onReceive(Context context, Intent intent) {
 
