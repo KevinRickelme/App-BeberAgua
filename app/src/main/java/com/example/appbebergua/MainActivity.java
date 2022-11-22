@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             CharSequence name = "Lembrete para beber água";
             String description = "Canal para notificar quando beber água";
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("drinkWaterApp", name, importance);
+            NotificationChannel channel = new NotificationChannel("Agualarme", name, importance);
             channel.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);

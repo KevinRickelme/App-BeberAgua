@@ -23,7 +23,7 @@ public class NotificacaoReceiver extends BroadcastReceiver {
         PendingIntent contentIntent = PendingIntent.getActivity(context,
                 0, activityIntent, 0);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "drinkWaterApp")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Agualarme")
                 .setSmallIcon(R.drawable.ic_gota_notificacao) //Definir o ícone da notificação
                 .setContentTitle(title) //Definir o título da notificação
                 .setContentText(message) //Definir o conteúdo no corpo da notificação
